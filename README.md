@@ -17,7 +17,7 @@ Trong Application giao diện này có sử dụng những thư viện phía cli
 Các bạn vui lòng làm theo hướng dẫn trong video của mình, sử dụng chính xác phiên bản của các thư viện này để tránh gặp những lỗi không đáng có nhé.
 Thank you so much!
 
-Author: Trung Quân
+Author: Virtual Robot
 
 Facebook:  https://facebook.com/simple.date.format
 
