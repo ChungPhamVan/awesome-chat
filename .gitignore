@@ -1,1 +1,3 @@
 node_modules
+.env
+src/public/bower_components
