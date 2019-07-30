@@ -1,15 +1,17 @@
-var express = require('express');
+import express from 'express';
 
-var app = express();
+let app = express();
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('public'));
 
-app.use('/', indexRoute);
 
-var listUser = [];
-var port = 3000;
+let port = 3000;
+app.get('/', function(req, res, next) {
+  res.send('Chung Pham');
+    
+});
 
-server.listen(process.env.PORT || port, function() {
-    console.log('Server listening..., port: ' + port);
+app.listen(process.env.PORT || port, function() {
+  console.log('Server listening..., port: ' + port);
 });
