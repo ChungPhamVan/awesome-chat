@@ -19,8 +19,6 @@ Thank you so much!
 
 Author: Trung Quân
 
-Blog: https://trungquandev.com/
-
-CV: https://cv.trungquandev.com/
+Facebook:  https://facebook.com/simple.date.format
 
 "A little bit of fragrance always clings to the hands that gives you roses!"
