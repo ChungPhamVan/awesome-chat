@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-let Shema = mongoose.Schema;
-let ContactSchema = new Shema({
+let Schema = mongoose.Schema;
+let ContactSchema = new Schema({
   userId: String,
   contactId: String,
   status: { type: Boolean, default: false }, 
