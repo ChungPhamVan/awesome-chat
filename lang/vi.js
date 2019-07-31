@@ -8,13 +8,18 @@ export const transErrors = {
   account_in_use: "Email này đã được sử dụng",
   account_removed: "Tài khoản này đã bị gỡ khỏi hệ thống, bạn có thể liên hệ phía bộ phận hỗ trợ để được giải đáp",
   account_not_active: "Email này đã được đăng ký nhưng chưa active, vui lòng active tài khoản bằng cách vào email và làm theo hướng dẫn",
-  token_undefined: "Email này đã được kích hoạt rồi!"
+  token_undefined: "Email này đã được kích hoạt rồi!",
+  login_failed: "Sai tài khoản hoặc mật khẩu",
+  server_error: "Có lỗi ở phía máy chủ. Vui lòng liên hệ bộ phận hỗ trợ của chúng tôi"
 }
 export const transSuccess = {
   userCreated: (userEmail) => {
     return `Tài khoản <strong>${userEmail}</strong> đã được tạo, vui lòng kiểm tra email của bạn để kích hoạt tài khoản. Xin cảm ơn!`;
   },
-  account_active: "Kích hoạt tài khoản thành công. Bạn có thể đăng nhập ứng dụng"
+  account_active: "Kích hoạt tài khoản thành công. Bạn có thể đăng nhập ứng dụng",
+  loginSuccess: (username) => {
+    return `Xin chào ${username}, chúc bạn một ngày tốt lành!`;
+  }
 };
 export const transMail = {
   subject: "Awesome-chat: Xác nhận kết quả tài khoản",

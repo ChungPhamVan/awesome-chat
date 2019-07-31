@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 let Shema = mongoose.Schema;
 let UserSchema = new Shema({
   username: String,
@@ -27,6 +28,7 @@ let UserSchema = new Shema({
   updateAt: { type: Number, default: null },
   deleteAt: { type: Number, default: null },
 });
+
 UserSchema.statics = {
   createNew(item) {
     return this.create(item);
@@ -45,6 +47,15 @@ UserSchema.statics = {
       {"local.verifyToken": token},
       {"local.isActive": true, "local.verifyToken": null}
     ).exec();
+  },
+  findUserById(id) {
+    return this.findById(id).exec();
+  }
+};
+
+UserSchema.methods = {
+  comparePassword(password) {
+    return bcrypt.compare(password, this.local.password);
   }
 };
 module.exports = mongoose.model("user", UserSchema);
