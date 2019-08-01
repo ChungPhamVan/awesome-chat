@@ -21,7 +21,6 @@ let initPassportGoogle = () => {
       if(user) {
         return done(null, user, req.flash('success', transSuccess.loginSuccess(user.username)));
       }
-      console.log(profile);
       let newUserItem = {
         username: profile.emails[0].value.split('@')[0],
         gender: profile.gender,
