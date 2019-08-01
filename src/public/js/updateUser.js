@@ -71,16 +71,23 @@ $(document).ready(function() {
       processData: false,
       data: userAvatar,
       success: function(result) {
-
+        $('.user-modal-alert-success').find('span').text(result.message);
+        $('.user-modal-alert-success').css('display', 'block');
+        $('#navbar-avatar').attr('src', result.imageSrc);
+        originAvatarSrc = result.imageSrc;
+        $('#input-btn-cancel-update-user').click();
       },
       error: function(error) {
-        
+        $('.user-modal-alert-error').find('span').text(error.responseText);
+        $('.user-modal-alert-error').css('display', 'block');
+        $('#input-btn-cancel-update-user').click();
       }
     });
   });
   $('#input-btn-cancel-update-user').bind("click", function() {
     userInfo = {};
     userAvatar = null;
+    $('#input-change-avatar').val(null);
     $('#user-modal-avatar').attr('src', originAvatarSrc);
   });
 });

@@ -10,7 +10,9 @@ export const transErrors = {
   account_not_active: "Email này đã được đăng ký nhưng chưa active, vui lòng active tài khoản bằng cách vào email và làm theo hướng dẫn",
   token_undefined: "Email này đã được kích hoạt rồi!",
   login_failed: "Sai tài khoản hoặc mật khẩu",
-  server_error: "Có lỗi ở phía máy chủ. Vui lòng liên hệ bộ phận hỗ trợ của chúng tôi"
+  server_error: "Có lỗi ở phía máy chủ. Vui lòng liên hệ bộ phận hỗ trợ của chúng tôi",
+  avatar_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
+  avatar_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB"
 }
 export const transSuccess = {
   userCreated: (userEmail) => {
@@ -20,7 +22,8 @@ export const transSuccess = {
   loginSuccess: (username) => {
     return `Xin chào ${username}, chúc bạn một ngày tốt lành!`;
   },
-  logout_success: "Đăng xuất thành công"
+  logout_success: "Đăng xuất thành công",
+  avatar_updated: "Cập nhật ảnh đại diện thành công"
 };
 export const transMail = {
   subject: "Awesome-chat: Xác nhận kết quả tài khoản",
