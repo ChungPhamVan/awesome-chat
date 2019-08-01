@@ -19,7 +19,8 @@ export const transSuccess = {
   account_active: "Kích hoạt tài khoản thành công. Bạn có thể đăng nhập ứng dụng",
   loginSuccess: (username) => {
     return `Xin chào ${username}, chúc bạn một ngày tốt lành!`;
-  }
+  },
+  logout_success: "Đăng xuất thành công"
 };
 export const transMail = {
   subject: "Awesome-chat: Xác nhận kết quả tài khoản",
