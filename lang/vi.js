@@ -12,6 +12,8 @@ export const transErrors = {
   account_in_use: "Email này đã được sử dụng",
   account_removed: "Tài khoản này đã bị gỡ khỏi hệ thống, bạn có thể liên hệ phía bộ phận hỗ trợ để được giải đáp",
   account_not_active: "Email này đã được đăng ký nhưng chưa active, vui lòng active tài khoản bằng cách vào email và làm theo hướng dẫn",
+  account_undefined: "Tài khoản này không tồn tại",
+  user_current_password_failed: "Mật khẩu hiện tại không đúng",
   token_undefined: "Email này đã được kích hoạt rồi!",
   login_failed: "Sai tài khoản hoặc mật khẩu",
   server_error: "Có lỗi ở phía máy chủ. Vui lòng liên hệ bộ phận hỗ trợ của chúng tôi",
@@ -28,7 +30,8 @@ export const transSuccess = {
   },
   logout_success: "Đăng xuất thành công",
   avatar_updated: "Cập nhật ảnh đại diện thành công",
-  user_info_updated: "Cập nhật thông tin người dùng thành công"
+  user_info_updated: "Cập nhật thông tin người dùng thành công",
+  user_password_updated: "Cập nhật mật khẩu thành công"
 };
 export const transMail = {
   subject: "Awesome-chat: Xác nhận kết quả tài khoản",
