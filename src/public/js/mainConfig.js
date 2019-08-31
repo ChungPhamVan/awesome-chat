@@ -1,6 +1,16 @@
 /**
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
+//const socket = io('http://localhost:3000');
+$.ajaxSetup({
+
+  headers: {
+
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+  }
+
+});
 function nineScrollLeft() {
   $('.left').niceScroll({
     smoothscroll: true,
