@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
-    let deprecatedUserIds = [];
+    let deprecatedUserIds = [currentUserId];
     let contactByUser = await ContactModel.findAllByUser(currentUserId);
     contactByUser.forEach(contact => {
       deprecatedUserIds.push(contact.userId);
@@ -19,7 +19,7 @@ let findUsersContact = (currentUserId, keyword) => {
 };
 
 
-let addNew = (currentUserId, keyword) => {
+let addNew = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
     let contactExists = await ContactModel.checkExists(currentUserId, contactId);
     if(contactExists) {
@@ -35,14 +35,13 @@ let addNew = (currentUserId, keyword) => {
   });
 };
 
-let removeRequestContact = (currentUserId, keyword) => {
+let removeRequestContact = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeReq = await ContactModel.removeRequestContact(userId, contactId);
+    let removeReq = await ContactModel.removeRequestContact(currentUserId, contactId);
     if(removeReq.result.n === 0) {
       return reject(false);
     }
     resolve(true);
-
   });
 };
 

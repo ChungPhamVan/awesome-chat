@@ -39,7 +39,7 @@ let initRoutes = (app) => {
       contactValid.findUsersContact, 
       contact.findUsersContact
       );
-  router.get('/contact/add-new', auth.checkLoggedIn, contact.addNew);
+  router.post('/contact/add-new', auth.checkLoggedIn, contact.addNew);
   router.delete('/contact/remove-request-contact', auth.checkLoggedIn, contact.removeRequestContact);
   return app.use("/", router);
 };
