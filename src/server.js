@@ -5,6 +5,7 @@ import initRoutes from './routes/web';
 import bodyParser from 'body-parser';
 import conectFlash from 'connect-flash';
 import session from './config/session';
+import configSocketIo from './config/socketio';
 import passport from 'passport';
 import pem from 'pem';
 import http from 'http';
