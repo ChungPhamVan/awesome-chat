@@ -245,7 +245,7 @@ label:focus,
 
 #notifications {
   display: none;
-  min-width: 250px;
+  min-width: 300px;
   position: absolute;
   right: 17px !important;
   border: solid 1px rgba(100, 100, 100, .20);
@@ -278,7 +278,7 @@ label:focus,
 }
 
 .noti_contact_counter {
-  display: none;
+  display: block;
   position: absolute;
   background: #E1141E;
   color: #FFF;
@@ -293,7 +293,7 @@ label:focus,
 }
 
 .noti_counter {
-  display: none;
+  display: block;
   position: absolute;
   background: #E1141E;
   color: #FFF;
@@ -309,7 +309,7 @@ label:focus,
 
 .noti_content {
   position: relative;
-  height: 200px;
+  height: 300px;
   background-color: #fff;
   overflow: auto;
 }
@@ -320,6 +320,7 @@ label:focus,
   margin-top: 5px;
   margin-left: 7px;
   color: #333;
+  padding: 5px;
 }
 
 .seeAll {
@@ -1280,5 +1281,16 @@ label:focus,
   display: none;
 }
 .user-modal-password-alert-error, .user-modal-password-alert-success {
+  display: none;
+}
+.notif-readed-false {
+  background-color: #edf2fa;
+  transition: 0.2s;
+}
+.notif-readed-false:hover {
+  background-color: rgb(201, 213, 231);
+}
+
+.display-none {
   display: none;
 }
