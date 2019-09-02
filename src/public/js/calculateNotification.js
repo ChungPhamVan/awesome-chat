@@ -1,6 +1,6 @@
-function deIncreaseNumberNotification(className) {
+function deIncreaseNumberNotification(className, number) {
   let currentValue = +$(`.${className}`).text();
-  currentValue -= 1;
+  currentValue -= number;
 
   if(currentValue == 0) {
     $(`.${className}`).css('display', "none").html("");
@@ -9,9 +9,9 @@ function deIncreaseNumberNotification(className) {
   }
 };
 
-function increaseNumberNotification(className) {
+function increaseNumberNotification(className, number) {
   let currentValue = +$(`.${className}`).text();
-  currentValue += 1;
+  currentValue += number;
 
   if(currentValue == 0) {
     $(`.${className}`).css('display', "none").html("");
