@@ -1311,7 +1311,9 @@ label:focus,
   list-style-type: none;
   border-radius: 5px;
 }
-
+.read-more-notif {
+  text-align: center;
+}
 .list-notifications li div:hover {
   cursor: pointer;
   background-color: #eceff1;
@@ -1320,6 +1322,205 @@ label:focus,
   float: right;
   margin-right: 20px;
 }
-.read-more-notif {
+.read-more-notif-loader {
   text-align: center;
+}
+.read-more-notif-loader {
+  color: official;
+  display: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: 394px;
+  margin-bottom: 40px;
+}
+.read-more-notif-loader div {
+  transform-origin: 32px 32px;
+  animation: read-more-notif-loader 1.2s linear infinite;
+}
+.read-more-notif-loader div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 41px;
+  left: 29px;
+  width: 3px;
+  height: 8px;
+  border-radius: 20%;
+  background: #34495e;
+}
+.read-more-notif-loader div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.read-more-notif-loader div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.read-more-notif-loader div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.read-more-notif-loader div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.read-more-notif-loader div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.read-more-notif-loader div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.read-more-notif-loader div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.read-more-notif-loader div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.read-more-notif-loader div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.read-more-notif-loader div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.read-more-notif-loader div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.read-more-notif-loader div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes read-more-notif-loader {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* .master-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+
+}
+.master-loader div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid #74b9ff;
+  border-radius: 50%;
+  animation: master-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #74b9ff transparent transparent transparent;
+}
+.master-loader div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.master-loader div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.master-loader div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes master-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} */
+.master-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+}
+.master-loader div {
+  transform-origin: 32px 32px;
+  animation: master-loader 1.2s linear infinite;
+}
+.master-loader div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 29px;
+  width: 5px;
+  height: 14px;
+  border-radius: 20%;
+  background: #74b9ff;
+}
+.master-loader div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.master-loader div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.master-loader div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.master-loader div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.master-loader div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.master-loader div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.master-loader div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.master-loader div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.master-loader div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.master-loader div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.master-loader div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.master-loader div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes master-loader {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
