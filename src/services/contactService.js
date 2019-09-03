@@ -2,7 +2,7 @@ import UserModel from './../models/user.model';
 import ContactModel from './../models/contact.model';
 import NotificationModel from '../models/notification.model';
 import _ from 'lodash';
-
+const LIMIT_NUMBER_TAKEN = 10;
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
     let deprecatedUserIds = [currentUserId];
@@ -56,8 +56,99 @@ let removeRequestContact = (currentUserId, contactId) => {
   });
 };
 
+
+let getContacts = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.getContacts(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async (contact) => {
+        if(contact.contactId == currentUserId) {
+          return await UserModel.findUserById(contact.userId);
+        } else {
+          return await UserModel.findUserById(contact.contactId);
+        }
+        
+      });
+      resolve(await Promise.all(users));
+
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let getContactsSent = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.getContactsSent(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.contactId);
+      });
+      resolve(await Promise.all(users));
+
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let getContactsReceived = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.getContactsReceived(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.userId);
+      });
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContacts = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await ContactModel.countAllContacts(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContactsSent = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await ContactModel.countAllContactsSent(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContactsReceived = (currentUserId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await ContactModel.countAllContactsReceived(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
-  removeRequestContact: removeRequestContact
+  removeRequestContact: removeRequestContact,
+  getContacts: getContacts,
+  getContactsSent: getContactsSent,
+  getContactsReceived: getContactsReceived,
+  countAllContacts: countAllContacts,
+  countAllContactsSent: countAllContactsSent,
+  countAllContactsReceived: countAllContactsReceived
 };

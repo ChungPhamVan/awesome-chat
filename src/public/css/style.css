@@ -1311,7 +1311,10 @@ label:focus,
   list-style-type: none;
   border-radius: 5px;
 }
-.read-more-notif {
+.read-more-notif,
+.read-more-contacts,
+.read-more-contacts-sent,
+.read-more-contacts-received {
   text-align: center;
 }
 .list-notifications li div:hover {

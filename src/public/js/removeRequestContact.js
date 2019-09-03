@@ -11,6 +11,9 @@ function removeRequestContact() {
           $('#find-user').find(`div.user-add-new-contact[data-uid = ${targetId}]`).css("display", "inline-block");
           deIncreaseNumberNotifContact('count-request-contact-sent');
 
+          $('#request-contact-sent').find(`li[data-uid = ${targetId}]`).remove();
+
+
           socket.emit('remove-request-contact', {
             contactId: targetId
           });
@@ -23,6 +26,8 @@ function removeRequestContact() {
 socket.on('response-remove-request-contact', function(user) {
   $('.noti_content').find(`div[data-uid = ${user.id}]`).remove();
   $('ul.list-notifications').find( `li>div[data-uid = ${user.id}]`).parent().remove();
+
+  $('#request-contact-received').find(`li[data-uid = ${user.id}]`).remove();
   deIncreaseNumberNotifContact('count-request-contact-received');
 
   deIncreaseNumberNotification('noti_contact_counter', 1);
