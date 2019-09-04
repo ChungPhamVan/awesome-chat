@@ -21,6 +21,15 @@ NotificationSchema.statics = {
       ]
     }).exec();
   },
+  removeRequestContactReceivedNotification(receiverId, senderId, type) {
+    return this.remove({
+      $and: [
+        {"senderId": senderId},
+        {"receiverId": receiverId},
+        {"type": type}
+      ]
+    }).exec();
+  },
 
   getByUserIdAndLimit(userId, limit) {
     return this.find({

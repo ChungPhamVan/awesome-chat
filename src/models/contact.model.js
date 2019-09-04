@@ -42,6 +42,14 @@ ContactSchema.statics = {
       ]
     }).exec();
   },
+  removeRequestContactReceived(userId, contactId) {
+    return this.remove({
+      $and: [
+        {"userId": contactId},
+        {"contactId": userId}
+      ]
+    }).exec();
+  },
   getContacts(userId, limit) {
     return this.find({
       $and: [
