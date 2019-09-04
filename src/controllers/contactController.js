@@ -40,12 +40,12 @@ let addNew = async (req, res, next) => {
 };
 
 
-let removeRequestContact = async (req, res, next) => {
+let removeRequestContactSent = async (req, res, next) => {
   try {
     let currentUserId = req.user._id;
     let contactId = req.body.uid;
 
-    let removeReq = await contact.removeRequestContact(currentUserId, contactId);
+    let removeReq = await contact.removeRequestContactSent(currentUserId, contactId);
 
     return res.status(200).send({success: !!removeReq});
   } catch (error) {
@@ -53,8 +53,43 @@ let removeRequestContact = async (req, res, next) => {
   }
 };
 
+let readMoreContacts = async (req, res) => {
+  try {
+    let skipNumberContacts = +(req.query.skipNumber);
+    let newContactUsers = await contact.readMoreContacts(req.user._id, skipNumberContacts);
+    return res.status(200).send(newContactUsers);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+
+let readMoreContactsSent = async (req, res) => {
+  try {
+    let skipNumberContacts = +(req.query.skipNumber);
+    let newContactUsers = await contact.readMoreContactsSent(req.user._id, skipNumberContacts);
+    return res.status(200).send(newContactUsers);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+let readMoreContactsReceived = async (req, res) => {
+  try {
+    let skipNumberContacts = +(req.query.skipNumber);
+    let newContactUsers = await contact.readMoreContactsReceived(req.user._id, skipNumberContacts);
+    return res.status(200).send(newContactUsers);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
-  removeRequestContact: removeRequestContact
+  removeRequestContactSent: removeRequestContactSent,
+  readMoreContacts: readMoreContacts,
+  readMoreContactsSent: readMoreContactsSent,
+  readMoreContactsReceived: readMoreContactsReceived
 }
