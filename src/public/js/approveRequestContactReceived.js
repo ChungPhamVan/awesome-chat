@@ -28,7 +28,7 @@ function approveRequestContactReceived() {
           increaseNumberNotifContact('count-contacts');
           deIncreaseNumberNotification('noti_contact_counter', 1);
           
-
+          removeContact();
 
           socket.emit('approve-request-contact-received', {
             contactId: targetId
@@ -68,7 +68,7 @@ socket.on('response-approve-request-contact-received', function(user) {
                             </div>
                             <br>
                             <div class="user-address">
-                                <span>&nbsp ${user.address}/span>
+                                <span>&nbsp ${user.address}</span>
                             </div>
                             <div class="user-talk" data-uid="${user.id}">
                                 Trò chuyện
@@ -79,6 +79,7 @@ socket.on('response-approve-request-contact-received', function(user) {
                         </div>
                       </li>`;
   $('#contacts').find('ul').prepend(userInfoHtml);
+  removeContact();
   
 });
 
