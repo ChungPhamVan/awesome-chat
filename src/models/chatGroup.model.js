@@ -9,7 +9,7 @@ let ChatGroupSchema = new Shema({
     { userId: String }
   ],
   createAt: { type: Number, default: Date.now },
-  updateAt: { type: Number, default: null },
+  updateAt: { type: Number, default: Date.now },
   deleteAt: { type: Number, default: null },
 });
 
@@ -17,7 +17,7 @@ ChatGroupSchema.statics = {
   getChatGroups(userId, limit) {
     return this.find({
       "members": {$elemMatch: {"userId": userId}}
-    }).sort({ "createAt": -1 }).limit(limit).exec();
+    }).sort({ "updateAt": -1 }).limit(limit).exec();
   }
 };
 module.exports = mongoose.model("chat-group", ChatGroupSchema);
