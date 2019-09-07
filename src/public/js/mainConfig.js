@@ -211,5 +211,6 @@ $(document).ready(function() {
 
   changeTypeChat();
   changeScreenChat();
-  $('ul.people').find('li')[0].click();
+  $('ul.people').find('.room-chat').first().click();
+  
 });
