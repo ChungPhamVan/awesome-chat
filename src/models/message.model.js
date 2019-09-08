@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
-let Shema = mongoose.Schema;
-let MessageSchema = new Shema({
+let Schema = mongoose.Schema;
+let MessageSchema = new Schema({
   senderId: String,
   receiverId: String,
   conversationType: String,
   messageType: String,
   sender: {
     id: String,
-    username: String,
+    name: String,
     avatar: String
   },
   receiver: {
     id: String,
-    username: String,
+    name: String,
     avatar: String
   },
   text: String,
@@ -23,10 +23,13 @@ let MessageSchema = new Shema({
   },
   createAt: { type: Number, default: Date.now },
   updateAt: { type: Number, default: null },
-  deleteAt: { type: Number, default: null },
+  deleteAt: { type: Number, default: null }
 });
 MessageSchema.statics = {
-  getMessages(senderId, receiverId, limit) {
+  createNew(item) {
+    return this.create(item);
+  },
+  getMessagesInPersonal(senderId, receiverId, limit) {
     return this.find({
       $or: [
         {$and: [
@@ -39,6 +42,9 @@ MessageSchema.statics = {
         ]}
       ]
     }).sort({ 'createAt': 1 }).limit(limit).exec();
+  },
+  getMessagesInGroup(receiverId, limit) {
+    return this.find({ "receiverId": receiverId} ).sort({ 'createAt': 1 }).limit(limit).exec();
   }
 };
 const MESSAGE_CONVERSATION_TYPES = {
@@ -47,7 +53,7 @@ const MESSAGE_CONVERSATION_TYPES = {
 };
 
 const MESSAGE_TYPES = {
-  TXT: 'text',
+  TEXT: 'text',
   IMAGE: 'image',
   FILE: 'file'
 };

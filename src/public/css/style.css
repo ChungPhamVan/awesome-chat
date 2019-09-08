@@ -446,8 +446,11 @@ label:focus,
 
 #myNavbar>ul>li>a>i {
   font-size: 22px;
+  color: black;
 }
-
+#myNavbar>ul>li>a>i.vuaclickvao {
+  color: white;
+}
 .avatar-small {
   width: 24px;
   height: 24px;
@@ -560,7 +563,7 @@ label:focus,
   color: #fff;
   border: 0;
   border-radius: 0;
-  background: #4d4d4d;
+  background: white;
   box-shadow: none;
   line-height: normal;
   vertical-align: top;
@@ -580,6 +583,8 @@ label:focus,
 
 .no-margin-bottom {
   margin-bottom: 0px;
+  background-color: #4267b2;
+  border-bottom: 1px solid #29487d; 
 }
 
 .no-margin-right {
@@ -1800,4 +1805,16 @@ label:focus,
 #screen-chat {
   width: 100%;
   height: 100%;
+}
+img[title="chung"] {
+  border-radius: 50%;
+}
+#dropdown-navbar-user a {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+.dropdown-menu li:hover {
+  background-color: black;
+  color: black;
 }

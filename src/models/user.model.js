@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-let Shema = mongoose.Schema;
-let UserSchema = new Shema({
+let Schema = mongoose.Schema;
+let UserSchema = new Schema({
   username: String,
   gender: { type: String, default: "male" },
   phone: { type: String, default: null },
