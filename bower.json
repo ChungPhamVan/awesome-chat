@@ -6,16 +6,18 @@
   ],
   "description": "Manage frontend libraries.",
   "main": "src/server.js",
-  "license": "",
+  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "src/public/"
   ],
   "dependencies": {
-    "bower_components": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git"
+    "bower_components": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git",
+    "emojione": "4.5.0"
   }
 }

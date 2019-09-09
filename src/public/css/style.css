@@ -1818,3 +1818,6 @@ img[title="chung"] {
   background-color: black;
   color: black;
 }
+.show-number-members, .show-number-message {
+  color: #2c3e59 !important;
+}

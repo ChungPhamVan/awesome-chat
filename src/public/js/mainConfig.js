@@ -173,17 +173,28 @@ function changeTypeChat() {
 function changeScreenChat() {
   //$('.room-chat').tab('hide');
   $('.room-chat').unbind('click').on('click', function() {
+    let divId = $(this).find('li').data('chat');
+
     $('.person').removeClass('active');
-    $(this).find('li').addClass('active');
+    $(`.person[data-chat = ${divId}]`).addClass('active');
 
     $(this).tab('show'); 
 
-    let divId = $(this).find('li').data('chat');
+    
     nineScrollRight(divId);
 
     enableEmojioneArea(divId);
 
   });
+}
+function convertEmoji() {
+  //$(document).ready(function() {
+    $(".convert-emoji").each(function() {
+        var original = $(this).html();
+        var converted = emojione.toImage(original);
+        $(this).html(converted);
+    });
+  //});
 }
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
@@ -216,8 +227,11 @@ $(document).ready(function() {
 
   changeTypeChat();
   changeScreenChat();
+  convertEmoji();
   $('ul.people').find('a')[0].click();
   $('#myNavbar>ul>li>a>i').click(function() {
     $(this).toggleClass('vuaclickvao');
   });
+  
+  
 });
