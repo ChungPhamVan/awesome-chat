@@ -59,6 +59,13 @@ function textAndEmojiChat(divId) {
 
         socket.emit('chat-text-emoji', dataToEmit);
 
+        typingOff(divId);
+
+        let checkTyping = $(`.chat[data-chat = ${divId}]`).find('div.bubble-typing-gif');
+        if(checkTyping.length) {
+          checkTyping.remove();
+        }
+
       }).fail(function(response) {
         //error
         alertify.notify(response.responseText, 'error', 7);
