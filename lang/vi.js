@@ -29,7 +29,7 @@ export const transSuccess = {
   },
   account_active: "Kích hoạt tài khoản thành công. Bạn có thể đăng nhập ứng dụng",
   loginSuccess: (username) => {
-    return `Xin chào ${username}, chúc bạn một ngày tốt lành!`;
+    return `Hello ${username}, welcome to my application!`;
   },
   logout_success: "Đăng xuất thành công",
   avatar_updated: "Cập nhật ảnh đại diện thành công",
