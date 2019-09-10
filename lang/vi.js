@@ -21,7 +21,9 @@ export const transErrors = {
   server_error: "Có lỗi ở phía máy chủ. Vui lòng liên hệ bộ phận hỗ trợ của chúng tôi",
   avatar_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
   avatar_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB",
-  conversation_not_found: "Cuộc trò chuyện không tồn tại"
+  conversation_not_found: "Cuộc trò chuyện không tồn tại",
+  image_message_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
+  image_message_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB"
 }
 export const transSuccess = {
   userCreated: (userEmail) => {
