@@ -1,6 +1,6 @@
 <% allConversationWithMessages.forEach((conversation, index) => { %>
 
-<div class="modal fade" id="attachsModal_<%= conversation._id %>" role="dialog">
+<div class="modal fade" id="attachmentsModal_<%= conversation._id %>" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
         <h4 class="modal-title">Tất cả tệp đính kèm trong cuộc trò chuyện.</h4>
       </div>
       <div class="modal-body">
-        <ul class="list-attachs">
+        <ul class="list-attachments">
           <% conversation.messages.forEach(function(message) { %>
           <% if(message.messageType === 'file') { %>
           <li>

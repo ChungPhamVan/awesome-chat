@@ -23,7 +23,9 @@ export const transErrors = {
   avatar_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB",
   conversation_not_found: "Cuộc trò chuyện không tồn tại",
   image_message_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
-  image_message_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB"
+  image_message_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB",
+  attachment_message_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
+  attachment_message_size: "Chỉ cho phép upload tệp tin kích thước tối đa 1MB"
 }
 export const transSuccess = {
   userCreated: (userEmail) => {

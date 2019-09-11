@@ -90,7 +90,59 @@ let addNewImage = async (req, res, next) => {
   });
   
 };
+
+
+let storageAttachmentChat = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, app.attachment_message_directory);
+  },
+  filename: (req, file, callback) => {
+    let attachmentName = `${file.originalname}`;
+    callback(null, attachmentName);
+  }
+});
+let attachmentMessageUploadFile = multer({
+  storage: storageAttachmentChat,
+  limits: {fieldNameSize: app.attachment_message_limit_size}
+}).single("my-attachment-chat");
+
+
+let addNewAttachment = async (req, res, next) => {
+  attachmentMessageUploadFile(req, res, async (error)  => {
+    if(error) {
+      if(error.message) {
+        return res.status(500).send(transErrors.attachment_message_size);
+      }
+      return res.status(500).send(error);
+    }
+
+    try {
+      let sender = {
+        id: req.user._id,
+        name: req.user.username,
+        avatar: req.user.avatar
+      };
+      
+      let receiverId = req.body.uid;
+      let messageVal = req.file;
+      let isChatGroup = req.body.isChatGroup;
+      
+      let newMessage = await message.addNewAttachment(sender, receiverId, messageVal, isChatGroup);
+      
+      await fsExtra.remove(`${app.attachment_message_directory}/${newMessage.file.fileName}`)
+      return res.status(200).send({ message: newMessage });
+  
+  
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  });
+  
+};
+
+
 module.exports = {
   addNewTextEmoji: addNewTextEmoji,
-  addNewImage: addNewImage
+  addNewImage: addNewImage,
+  addNewAttachment: addNewAttachment
 };

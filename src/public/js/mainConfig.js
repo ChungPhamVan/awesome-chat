@@ -195,16 +195,24 @@ function changeScreenChat() {
 
     enableEmojioneArea(divId);
     imageChat(divId);
+    attachmentChat(divId);
   });
 }
 function convertEmoji() {
-  //$(document).ready(function() {
-    $(".convert-emoji").each(function() {
-        var original = $(this).html();
-        var converted = emojione.toImage(original);
-        $(this).html(converted);
-    });
-  //});
+  $(".convert-emoji").each(function() {
+      var original = $(this).html();
+      var converted = emojione.toImage(original);
+      $(this).html(converted);
+  });
+
+}
+function bufferToBase64(buffer) {
+  return btoa(
+    new Uint8Array(buffer).reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      ""
+    )
+  );
 }
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
