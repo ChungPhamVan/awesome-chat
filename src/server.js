@@ -13,6 +13,8 @@ import socketio from 'socket.io';
 import initSockets from './sockets/index';
 import passpportSocketIo from 'passport.socketio';
 import cookieParser from 'cookie-parser';
+import events from 'events';
+import * as configApp from './config/app';
 
 // pem.config({
 //   pathOpenSSL: '../node_modules/pem/lib/openssl'
@@ -38,6 +40,7 @@ import cookieParser from 'cookie-parser';
 // });
 
 let app = express();
+events.EventEmitter.defaultMaxListeners = configApp.app.max_event_listeners;
 let server = http.createServer(app);
 let io = socketio(server);
 connectDB();
