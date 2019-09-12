@@ -622,11 +622,11 @@ label:focus,
 }
 
 .online {
-  background-color: #42b72a !important;
+  background-color: rgb(66, 183, 42) !important;
 }
 
 .avatar-online {
-  border-color: #42b72a !important;
+  border-color: rgb(66, 183, 42) !important;
 }
 
 .left {
@@ -1158,6 +1158,7 @@ label:focus,
   margin-bottom: 27px;
   text-align: center;
 }
+
 
 .right .conversation-start span {
   font-size: 14px;
