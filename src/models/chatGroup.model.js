@@ -32,6 +32,9 @@ ChatGroupSchema.statics = {
     return this.find({
       "members": {$elemMatch: {"userId": userId}}
     }, {_id: 1}).exec();
+  },
+  createGroup(item) {
+    return this.create(item);
   }
 };
 module.exports = mongoose.model("chat-group", ChatGroupSchema);

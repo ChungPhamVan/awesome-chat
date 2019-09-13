@@ -16,7 +16,7 @@ function addFriendsToGroup() {
 }
 
 function cancelCreateGroup() {
-  $('#cancel-group-chat').bind('click', function() {
+  $('#btn-cancel-group-chat').bind('click', function() {
     $('#groupChatModal .list-user-added').hide();
     if ($('ul#friends-added>li').length) {
       $('ul#friends-added>li').each(function(index) {
@@ -50,9 +50,55 @@ function callSearchFriends(element) {
   }
 }
 function callCreateGroupChat() {
-  
+  $('#btn-create-group-chat').unbind('click').on('click', function() {
+    let countUsers = $('ul#friends-added').find('li');
+    if(countUsers.length < 2) {
+      alertify.notify('Cần chọn thêm bạn bè để tạo nhóm, tối thiểu là 2 người...', 'error', 7)
+      return false;
+    }
+    let groupChatName = $('#input-name-group-chat').val();
+    if(groupChatName.length < 5 || groupChatName.length > 30) {
+      alertify.notify('Tên của nhóm phải có từ 5-30 ký tự...', 'error', 7);
+      return false;
+    }
+    let arrayIds = [];
+    $('ul#friends-added').find('li').each(function(index, item) {
+      arrayIds.push({"userId": $(item).data('uid')});
+    });
+
+    Swal.fire({
+      title: `Bạn có chắc chắn muốn tạo nhóm &nbsp; ${groupChatName}?`,
+      type: "info",
+      showCancelButton: true,
+      confirmButtonColor: "##2ECC17",
+      cancelButtonColor: "#FF7675",
+      confirmButtonText: "Xác nhận",
+      cancelButtonText: "Hủy"
+    }).then((result) => {
+      if(!result.value) {
+        return false;
+      }
+      $.post('/group-chat/add-new', {
+        arrayIds: arrayIds,
+        groupChatName: groupChatName
+      }, function(data) {
+        //buoc 1:
+        $('#input-name-group-chat').val('');
+        $('#btn-cancel-group-chat').click();
+        $('#groupChatModal').modal('hide');
+        //buoc 2:
+        
+
+
+      }).fail(function(response) {
+        alertify.notify(response.responseText, 'error', 7);
+      });
+    });
+    
+  });
 }
 $(document).ready(function() {
   $('#input-search-friends-to-add-group-chat').bind('keypress', callSearchFriends);
   $('#btn-search-friends-to-add-group-chat').bind('click', callSearchFriends);
+  callCreateGroupChat();
 });

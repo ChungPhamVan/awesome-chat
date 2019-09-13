@@ -147,6 +147,22 @@ let searchFriends = async (req, res, next) => {
     return res.status(500).send(error);
   }
 };
+let addNewGroup = async (req, res, next) => {
+  try {
+    let userId = req.user._id;
+    let arrayIds = req.body.arrayIds;
+    //console.log(typeof JSON.stringify(userId), userId);
+    //userId = JSON.stringify(userId);
+    console.log(typeof String(userId), userId);
+    let groupChatName = req.body.groupChatName;
+    arrayIds.unshift({"userId": String(userId)});
+    let newGroup = await contact.addNewGroup(groupChatName, arrayIds);
+
+    return res.status(200).send({success: !!newGroup});
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -157,5 +173,6 @@ module.exports = {
   readMoreContacts: readMoreContacts,
   readMoreContactsSent: readMoreContactsSent,
   readMoreContactsReceived: readMoreContactsReceived,
-  searchFriends: searchFriends
+  searchFriends: searchFriends,
+  addNewGroup: addNewGroup
 }

@@ -1,6 +1,7 @@
 import UserModel from './../models/user.model';
 import ContactModel from './../models/contact.model';
 import NotificationModel from '../models/notification.model';
+import ChatGroupModel from '../models/chatGroup.model';
 import _ from 'lodash';
 const LIMIT_NUMBER_TAKEN = 1;
 let findUsersContact = (currentUserId, keyword) => {
@@ -242,6 +243,24 @@ let searchFriends = (currentUserId, keyword) => {
   });
 };
 
+let addNewGroup = (groupChatName, arrayIds) => {
+  return new Promise(async (resolve, reject) => {
+    // let contactExists = await ContactModel.checkExists(currentUserId, contactId);
+    // if(contactExists) {
+    //   return reject(false);
+    // }
+
+    let newGroupItem = {
+      name: groupChatName,
+      userAmount: arrayIds.length,
+      userId: arrayIds[0].userId,
+      members: arrayIds
+    };
+    let newGroup = await ChatGroupModel.createGroup(newGroupItem);
+
+    resolve(newGroup);
+  });
+};
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -258,5 +277,6 @@ module.exports = {
   readMoreContacts: readMoreContacts,
   readMoreContactsSent: readMoreContactsSent,
   readMoreContactsReceived: readMoreContactsReceived,
-  searchFriends: searchFriends
+  searchFriends: searchFriends,
+  addNewGroup: addNewGroup
 };
