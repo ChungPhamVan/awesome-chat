@@ -77,5 +77,5 @@ let getHome = async (req, res, next) => {
 };
 module.exports = {
   getHome: getHome,
-  getICETurnServer
+  getICETurnServer: getICETurnServer
 };

@@ -53,6 +53,10 @@ let initRoutes = (app) => {
   router.post('/message/add-new-text-emoji', auth.checkLoggedIn, messageValid.checkMessageLength, message.addNewTextEmoji);
   router.post('/message/add-new-image', auth.checkLoggedIn, message.addNewImage);
   router.post('/message/add-new-attachment', auth.checkLoggedIn, message.addNewAttachment);
+  router.get('/contact/search-friends/:keyword', auth.checkLoggedIn,
+      contactValid.findUsersContact,
+      contact.searchFriends
+      );
   
   return app.use("/", router);
 };
