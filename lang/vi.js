@@ -8,7 +8,8 @@ export const transValidation = {
   update_address: "Address chỉ từ 3-30 ký tự",
   update_phone: "Phone phải bắt đầu bằng 0, giới hạn 10-11 số",
   keyword_find_user: "Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách",
-  message_text_emoji_incorrect: "Tin nhắn phải có tối thiểu 1 ký tự và tối đa 400 ký tự"
+  message_text_emoji_incorrect: "Tin nhắn phải có tối thiểu 1 ký tự và tối đa 400 ký tự",  
+  group_chat_name_error: "Tên nhóm phải từ 5-30 ký tự, chỉ chứa chữ cái, chữ số"
 };
 export const transErrors = {
   account_in_use: "Email này đã được sử dụng",
@@ -25,7 +26,9 @@ export const transErrors = {
   image_message_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
   image_message_size: "Chỉ cho phép upload ảnh kích thước tối đa 1MB",
   attachment_message_type: "Kiểu file ảnh không hợp lệ, chỉ chấp nhận jpg, png & jpeg",
-  attachment_message_size: "Chỉ cho phép upload tệp tin kích thước tối đa 1MB"
+  attachment_message_size: "Chỉ cho phép upload tệp tin kích thước tối đa 1MB",
+  group_chat_name_dulicate_error: "Tên nhóm phải khác với tên các nhóm đã có trước đó mà bạn tham gia",
+  group_chat_name_error: "Tên nhóm phải từ 5-30 ký tự, chỉ chứa chữ cái, chữ số"
 }
 export const transSuccess = {
   userCreated: (userEmail) => {

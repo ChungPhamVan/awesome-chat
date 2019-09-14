@@ -13,6 +13,14 @@ let chatImage = (io) => {
     });
     // console.log(clients);
     
+    socket.on('new-group-created', (data) => {
+      clients = pushSocketIdToArray(clients, data.groupChat._id, socket.id);
+    });
+
+    socket.on('member-received-group-chat', function(data) {
+      clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
+    });
+    
     socket.on('chat-image', (data) => {
       if(data.groupId) {
         let response = {

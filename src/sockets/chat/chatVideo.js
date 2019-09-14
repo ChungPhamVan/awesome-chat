@@ -81,7 +81,14 @@ let chatVideo = (io) => {
         emitNotifyToArray(clients, data.callerId, io, "server-send-reject-call-to-caller", response);
       }
     });
+    
+    socket.on('new-group-created', (data) => {
+      clients = pushSocketIdToArray(clients, data.groupChat._id, socket.id);
+    });
 
+    socket.on('member-received-group-chat', function(data) {
+      clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
+    });
 
     socket.on('listener-accept-request-call-to-server', (data) => {
       let response = {

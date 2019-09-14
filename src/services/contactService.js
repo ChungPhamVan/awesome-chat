@@ -3,6 +3,7 @@ import ContactModel from './../models/contact.model';
 import NotificationModel from '../models/notification.model';
 import ChatGroupModel from '../models/chatGroup.model';
 import _ from 'lodash';
+import { transErrors } from '../../lang/vi';
 const LIMIT_NUMBER_TAKEN = 1;
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
@@ -245,11 +246,10 @@ let searchFriends = (currentUserId, keyword) => {
 
 let addNewGroup = (groupChatName, arrayIds) => {
   return new Promise(async (resolve, reject) => {
-    // let contactExists = await ContactModel.checkExists(currentUserId, contactId);
-    // if(contactExists) {
-    //   return reject(false);
-    // }
-
+    let groupCheckExist = await ChatGroupModel.checkGroupExist(groupChatName, arrayIds[0].userId);
+    if(groupCheckExist) {
+      return reject(transErrors.group_chat_name_dulicate_error);
+    }
     let newGroupItem = {
       name: groupChatName,
       userAmount: arrayIds.length,

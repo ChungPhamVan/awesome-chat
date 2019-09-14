@@ -12,6 +12,13 @@ let chatAttachment = (io) => {
       clients = pushSocketIdToArray(clients, group._id, socket.id);
     });
     // console.log(clients);
+    socket.on('new-group-created', (data) => {
+      clients = pushSocketIdToArray(clients, data.groupChat._id, socket.id);
+    });
+
+    socket.on('member-received-group-chat', function(data) {
+      clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
+    });
     
     socket.on('chat-attachment', (data) => {
       if(data.groupId) {

@@ -37,16 +37,17 @@ function attachmentChat(divId) {
           let dataToEmit = {
             message: data.message
           };
+          console.log(data.message);
 
           let messageOfMe = $(
             `<div class="bubble me bubble-attachment-file" data-mess-id="${data.message._id}"></div>`
           );
 
           let attachmentChat = `<a href="data:${
-            data.message.contentType
+            data.message.file.contentType
           }; base64, ${bufferToBase64(data.message.file.data.data)}"
-              download="${data.message.fileName}">
-              ${data.message.fileName}
+              download="${data.message.file.fileName}">
+              ${data.message.file.fileName}
             </a>`;
 
           if (isChatGroup) {

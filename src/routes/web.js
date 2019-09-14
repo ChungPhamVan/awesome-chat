@@ -57,7 +57,7 @@ let initRoutes = (app) => {
       contactValid.findUsersContact,
       contact.searchFriends
       );
-  router.post('/group-chat/add-new', auth.checkLoggedIn, contact.addNewGroup);
+  router.post('/group-chat/add-new', auth.checkLoggedIn, contactValid.addNewGroup, contact.addNewGroup);
   
   return app.use("/", router);
 };

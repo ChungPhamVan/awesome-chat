@@ -151,14 +151,26 @@ let addNewGroup = async (req, res, next) => {
   try {
     let userId = req.user._id;
     let arrayIds = req.body.arrayIds;
+    let errorArr = [];
+    let validationErrors = validationResult(req);
+
+    if(!validationErrors.isEmpty()) {
+      let errors = Object.values(validationErrors.mapped());
+      errors.forEach(item => {
+        errorArr.push(item.msg);
+      });
+
+       return res.status(500).send(errorArr[0]);
+    }
     //console.log(typeof JSON.stringify(userId), userId);
     //userId = JSON.stringify(userId);
-    console.log(typeof String(userId), userId);
+    //console.log(typeof String(userId), userId);
     let groupChatName = req.body.groupChatName;
     arrayIds.unshift({"userId": String(userId)});
-    let newGroup = await contact.addNewGroup(groupChatName, arrayIds);
 
-    return res.status(200).send({success: !!newGroup});
+    let newGroup = await contact.addNewGroup(groupChatName, arrayIds);
+    //console.log(newGroup);
+    return res.status(200).send({groupChat: newGroup});
   } catch (error) {
     return res.status(500).send(error);
   }
