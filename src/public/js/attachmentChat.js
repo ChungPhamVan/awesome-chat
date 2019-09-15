@@ -189,9 +189,9 @@ $(document).ready(function() {
                                             ${response.message.file.fileName}
                                           </a>
                                         </li>`;
-      $(`#attachmentsModal_${divId}`)
-        .find("div.all-images")
-        .append(attachmentChatToAddModal);
+    $(`#attachmentsModal_${divId}`)
+    .find("ul.list-attachments")
+    .append(attachmentChatToAddModal);
     }
   });
 });

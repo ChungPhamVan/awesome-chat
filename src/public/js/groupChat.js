@@ -113,7 +113,7 @@ function callCreateGroupChat() {
             </li>
           </a>`;
         $('#all-chat ul').prepend(leftSideData);
-        $('#group-chat').prepend(leftSideData);
+        $('#group-chat ul').prepend(leftSideData);
 
         //buoc 3: xử lý bên trái màn hình
         let rightSideData = 

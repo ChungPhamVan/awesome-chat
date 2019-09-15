@@ -1,6 +1,8 @@
 function approveRequestContactReceived() {
   $('.user-approve-request-contact-received').unbind('click').on("click", function() {
     let targetId = $(this).data('uid');
+    let targetName = $(this).parent().find('div.user-name>p').text().trim();
+    let targetAvatar = $(this).parent().find('div.user-avatar>img').attr('src');
 
     $.ajax({
       url: '/contact/approve-request-contact-received',
@@ -29,6 +31,128 @@ function approveRequestContactReceived() {
           deIncreaseNumberNotification('noti_contact_counter', 1);
           
           removeContact();
+
+          // buoc 1:
+          //$("#contactsModal").modal('hide');
+          //buoc 2: xử lý bên phải màn hình
+          let subUserName = targetName;
+          if(subUserName.length > 15) {
+            subUserName = subUserName.substr(0, 14) + '...';
+          }
+          
+          let leftSideData = 
+            `<a href="#uid_${targetId}" class="room-chat" data-target="#to_${targetId}">
+              <li class="person" data-chat="${targetId}">
+                <div class="left-avatar">
+                  <div class="dot"></div>
+                  <img src="${targetAvatar}" alt="" />
+                </div>
+                <span class="name">
+                  ${subUserName}
+                </span>
+                <span class="time">
+                </span>
+                <span class="preview convert-emoji">
+                </span>
+              </li>
+            </a>`;
+          $('#all-chat ul').prepend(leftSideData);
+          $('#user-chat ul').prepend(leftSideData);
+
+
+          //buoc 3: xử lý bên trái màn hình
+        let rightSideData = 
+            `<div class="right tab-pane" data-chat="${targetId}"
+              id="to_${targetId}">
+              <div class="top">
+                <span>To: <span class="name">${targetName}</span></span>
+                <span class="chat-menu-right">
+                  <a href="#attachmentsModal_${targetId}" class="show-attachments" data-toggle="modal">
+                    Tệp đính kèm
+                    <i class="fa fa-paperclip"></i>
+                  </a>
+                </span>
+                <span class="chat-menu-right">
+                  <a href="javascript:void(0)">&nbsp;</a>
+                </span>
+                <span class="chat-menu-right">
+                  <a href="#imagesModal_${targetId}" class="show-images" data-toggle="modal">
+                    Hình ảnh
+                    <i class="fa fa-photo"></i>
+                  </a>
+                </span>
+              </div>
+              <div class="content-chat">
+                <div class="chat" data-chat="${targetId}">
+                </div>
+              </div>
+              <div class="write" data-chat="${targetId}">
+                <input type="text" class="write-chat" id="write-chat-${targetId}" data-chat="${targetId}">
+                <div class="icons">
+                  <a href="#" class="icon-chat" data-chat="${targetId}"><i class="fa fa-smile-o"></i></a>
+                  <label for="image-chat-${targetId}" class="label-image-chat">
+                    <input type="file" id="image-chat-${targetId}" name="my-image-chat" class="image-chat"
+                      data-chat="${targetId}">
+                    <i class="fa fa-photo"></i>
+                  </label>
+                  <label for="attachment-chat-${targetId}">
+                    <input type="file" id="attachment-chat-${targetId}" name="my-attachment-chat" class="attachment-chat"
+                      data-chat="${targetId}">
+                    <i class="fa fa-paperclip"></i>
+                  </label>
+                  <a href="javascript:void(0)" id="video-chat-${targetId}" class="video-chat" data-chat="${targetId}">
+                    <i class="fa fa-video-camera"></i>
+                  </a>
+                </div>
+              </div>
+            </div>`;
+          $('#screen-chat').prepend(rightSideData);
+
+          //buoc 4: goi lai changescreenchat
+          changeScreenChat();
+
+          // buoc 5: xử lý modal ảnh
+          let imageModalData = 
+            `<div class="modal fade" id="imagesModal_${targetId}" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tất cả hình ảnh trong cuộc trò chuyện.</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="all-images" style="visibility: hidden;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          $('body').append(imageModalData);
+
+          //buoc 6: gọi function gridPhotos
+          gridPhotos(5);
+
+          //buoc 7: xử lý attachment modal
+          let attachmenModalData = 
+            `<div class="modal fade" id="attachmentsModal_${targetId}" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tất cả tệp đính kèm trong cuộc trò chuyện.</h4>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="list-attachments">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          $('body').append(attachmenModalData);
+
+          // buoc 10: 
+          socket.emit('check-status');
+
 
           socket.emit('approve-request-contact-received', {
             contactId: targetId
@@ -80,6 +204,128 @@ socket.on('response-approve-request-contact-received', function(user) {
                       </li>`;
   $('#contacts').find('ul').prepend(userInfoHtml);
   removeContact();
+
+  // chuc nang chat
+
+  // buoc 1:
+  //buoc 2: xử lý bên phải màn hình
+  let subUserName = user.username;
+  if(subUserName.length > 15) {
+    subUserName = subUserName.substr(0, 14) + '...';
+  }
+  
+  let leftSideData = 
+    `<a href="#uid_${user.id}" class="room-chat" data-target="#to_${user.id}">
+      <li class="person" data-chat="${user.id}">
+        <div class="left-avatar">
+          <div class="dot"></div>
+          <img src="images/users/${user.avatar}" alt="" />
+        </div>
+        <span class="name">
+          ${subUserName}
+        </span>
+        <span class="time">
+        </span>
+        <span class="preview convert-emoji">
+        </span>
+      </li>
+    </a>`;
+  $('#all-chat ul').prepend(leftSideData);
+  $('#user-chat ul').prepend(leftSideData);
+
+
+  //buoc 3: xử lý bên trái màn hình
+  let rightSideData = 
+      `<div class="right tab-pane" data-chat="${user.id}"
+        id="to_${user.id}">
+        <div class="top">
+          <span>To: <span class="name">${user.username}</span></span>
+          <span class="chat-menu-right">
+            <a href="#attachmentsModal_${user.id}" class="show-attachments" data-toggle="modal">
+              Tệp đính kèm
+              <i class="fa fa-paperclip"></i>
+            </a>
+          </span>
+          <span class="chat-menu-right">
+            <a href="javascript:void(0)">&nbsp;</a>
+          </span>
+          <span class="chat-menu-right">
+            <a href="#imagesModal_${user.id}" class="show-images" data-toggle="modal">
+              Hình ảnh
+              <i class="fa fa-photo"></i>
+            </a>
+          </span>
+        </div>
+        <div class="content-chat">
+          <div class="chat" data-chat="${user.id}">
+          </div>
+        </div>
+        <div class="write" data-chat="${user.id}">
+          <input type="text" class="write-chat" id="write-chat-${user.id}" data-chat="${user.id}">
+          <div class="icons">
+            <a href="#" class="icon-chat" data-chat="${user.id}"><i class="fa fa-smile-o"></i></a>
+            <label for="image-chat-${user.id}" class="label-image-chat">
+              <input type="file" id="image-chat-${user.id}" name="my-image-chat" class="image-chat"
+                data-chat="${user.id}">
+              <i class="fa fa-photo"></i>
+            </label>
+            <label for="attachment-chat-${user.id}">
+              <input type="file" id="attachment-chat-${user.id}" name="my-attachment-chat" class="attachment-chat"
+                data-chat="${user.id}">
+              <i class="fa fa-paperclip"></i>
+            </label>
+            <a href="javascript:void(0)" id="video-chat-${user.id}" class="video-chat" data-chat="${user.id}">
+              <i class="fa fa-video-camera"></i>
+            </a>
+          </div>
+        </div>
+      </div>`;
+    $('#screen-chat').prepend(rightSideData);
+
+    //buoc 4: goi lai changescreenchat
+    changeScreenChat();
+
+    // buoc 5: xử lý modal ảnh
+    let imageModalData = 
+      `<div class="modal fade" id="imagesModal_${user.id}" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Tất cả hình ảnh trong cuộc trò chuyện.</h4>
+            </div>
+            <div class="modal-body">
+              <div class="all-images" style="visibility: hidden;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    $('body').append(imageModalData);
+
+    //buoc 6: gọi function gridPhotos
+    gridPhotos(5);
+
+    //buoc 7: xử lý attachment modal
+    let attachmenModalData = 
+      `<div class="modal fade" id="attachmentsModal_${user.id}" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Tất cả tệp đính kèm trong cuộc trò chuyện.</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-attachments">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    $('body').append(attachmenModalData);
+
+    // buoc 10: 
+    socket.emit('check-status');
   
 });
 
