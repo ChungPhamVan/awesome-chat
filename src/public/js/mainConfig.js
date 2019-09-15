@@ -22,6 +22,10 @@ function nineScrollLeft() {
   });
 }
 
+function resizeNineScrollLeft() {
+  $('.left').getNiceScroll().resize();
+}
+
 function nineScrollRight(divId) {
   $(`.right .chat[data-chat = ${divId}]`).niceScroll({
     smoothscroll: true,
@@ -216,7 +220,7 @@ $(document).ready(function() {
   changeTypeChat();
   changeScreenChat();
   convertEmoji();
-  $('ul.people').find('a')[0].click();
+  $('.tab-content div.active ul').find('a')[0].click();
   $('#myNavbar>ul>li>a>i').click(function() {
     $(this).toggleClass('vuaclickvao');
   });

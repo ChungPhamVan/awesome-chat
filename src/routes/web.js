@@ -52,6 +52,7 @@ let initRoutes = (app) => {
   router.put('/notification/mark-all-as-read', auth.checkLoggedIn, notification.markAllAsRead);
   router.post('/message/add-new-text-emoji', auth.checkLoggedIn, messageValid.checkMessageLength, message.addNewTextEmoji);
   router.post('/message/add-new-image', auth.checkLoggedIn, message.addNewImage);
+  router.get('/message/read-more-all-chat', auth.checkLoggedIn, message.readMoreAllChat);
   router.post('/message/add-new-attachment', auth.checkLoggedIn, message.addNewAttachment);
   router.get('/contact/search-friends/:keyword', auth.checkLoggedIn,
       contactValid.findUsersContact,

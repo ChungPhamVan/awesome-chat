@@ -42,7 +42,7 @@ $(document).ready(function () {
         $('#link-read-more-contacts-received').css('display', 'inline-block');
         $('.read-more-contacts-received-loader').css('display', 'none');
       });
-    }, 750);
+    }, 500);
     
   });
 });

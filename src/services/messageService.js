@@ -7,7 +7,7 @@ import fsExtra from 'fs-extra';
 import { transErrors } from '../../lang/vi';
 import { app } from '../config/app';
 
-const  LIMIT_CONVERSATION_TAKEN = 15;
+const  LIMIT_CONVERSATION_TAKEN = 5;
 const  LIMIT_MESSAGES_TAKEN = 30;
 
 
@@ -271,9 +271,66 @@ let addNewAttachment = (sender, receiverId, messageVal, isChatGroup) => {
   });
 };
 
+let readMoreAllChat = (currentUserId, skipPersonal, skipGroup) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.readMoreContacts(currentUserId, skipPersonal, LIMIT_CONVERSATION_TAKEN);
+
+      let userConversationsPromise = contacts.map(async (contact) => {
+        if(contact.contactId == currentUserId) {
+          let getUserContact = await UserModel.getNormalUserDataById(contact.userId);
+          getUserContact.updateAt = contact.updateAt;
+          return getUserContact;
+        } else {
+          let getUserContact = await UserModel.getNormalUserDataById(contact.contactId);
+          getUserContact.updateAt = contact.updateAt;
+          return getUserContact;
+        }
+      });
+      let userConversations = await Promise.all(userConversationsPromise);
+
+      let groupConversations = await ChatGroupModel.readMoreChatGroups(currentUserId, skipGroup, LIMIT_CONVERSATION_TAKEN);
+
+      let allConversations = userConversations.concat(groupConversations);
+      allConversations = _.sortBy(allConversations, (item) => {
+        return -item.updateAt;
+      });
+
+      //get messages to aply in screen chat
+      let allConversationWithMessagesPromise = allConversations.map(async (conversation) => {
+        conversation = conversation.toObject();
+        if(conversation.members) {
+          let getMessages = await MessageModel.model.getMessagesInGroup(conversation._id, LIMIT_MESSAGES_TAKEN);
+        
+          conversation.messages = _.reverse(getMessages);
+        } else {
+          let getMessages = await MessageModel.model.getMessagesInPersonal(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
+        
+          conversation.messages = _.reverse(getMessages);
+        }
+        
+        
+        return conversation;
+      });
+      let allConversationWithMessages = await Promise.all(allConversationWithMessagesPromise);
+      //sap xep lai
+      allConversationWithMessages = _.sortBy(allConversationWithMessages, (item) => {
+        return -item.updateAt;
+      });
+
+
+      resolve(allConversationWithMessages);
+
+      
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   getAllConversationItems: getAllConversationItems,
   addNewTextEmoji: addNewTextEmoji,
   addNewImage: addNewImage,
-  addNewAttachment: addNewAttachment
+  addNewAttachment: addNewAttachment,
+  readMoreAllChat: readMoreAllChat
 };

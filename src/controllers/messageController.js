@@ -4,6 +4,12 @@ import multer from 'multer';
 import { app } from './../config/app';
 import fsExtra from 'fs-extra';
 import { transErrors, transSuccess } from './../../lang/vi';
+import ejs from 'ejs';
+import { promisify } from 'util'; // mac dinh
+import { lastItemOfArray, convertTimestampToHumanTime } from '../helpers/clientHelper';
+import { bufferToBase64 } from '../helpers/clientHelper';
+
+const renderFile = promisify(ejs.renderFile).bind(ejs);
 
 let addNewTextEmoji = async (req, res, next) => {
   
@@ -56,8 +62,6 @@ let imageMessageUploadFile = multer({
   storage: storageImageChat,
   limits: {fieldNameSize: app.image_message_limit_size}
 }).single("my-image-chat");
-
-
 let addNewImage = async (req, res, next) => {
   imageMessageUploadFile(req, res, async (error)  => {
     if(error) {
@@ -105,8 +109,6 @@ let attachmentMessageUploadFile = multer({
   storage: storageAttachmentChat,
   limits: {fieldNameSize: app.attachment_message_limit_size}
 }).single("my-attachment-chat");
-
-
 let addNewAttachment = async (req, res, next) => {
   attachmentMessageUploadFile(req, res, async (error)  => {
     if(error) {
@@ -141,8 +143,36 @@ let addNewAttachment = async (req, res, next) => {
 };
 
 
+let readMoreAllChat = async (req, res, next) => {
+  try {
+    let skipPersonal = +(req.query.skipPersonal);
+    let skipGroup = +(req.query.skipGroup);
+    let newAllConversations = await message.readMoreAllChat(req.user._id, skipPersonal, skipGroup);
+    let dataToRender = {
+      newAllConversations: newAllConversations,
+      lastItemOfArray: lastItemOfArray,
+      convertTimestampToHumanTime: convertTimestampToHumanTime,
+      bufferToBase64: bufferToBase64,
+      user: req.user
+    };
+    let leftSideData = await renderFile('src/views/main/readMoreConversation/_leftSide.ejs', dataToRender);
+    let rightSideData = await renderFile('src/views/main/readMoreConversation/_rightSide.ejs', dataToRender);
+    let imageModalData = await renderFile('src/views/main/readMoreConversation/_imageModal.ejs', dataToRender);
+    let attachmentModalData = await renderFile('src/views/main/readMoreConversation/_attachmentModal.ejs', dataToRender);
+    
+    return res.status(200).send({
+      leftSideData: leftSideData,
+      rightSideData: rightSideData,
+      imageModalData: imageModalData,
+      attachmentModalData: attachmentModalData
+    });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 module.exports = {
   addNewTextEmoji: addNewTextEmoji,
   addNewImage: addNewImage,
-  addNewAttachment: addNewAttachment
+  addNewAttachment: addNewAttachment,
+  readMoreAllChat: readMoreAllChat
 };

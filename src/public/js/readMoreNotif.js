@@ -18,7 +18,7 @@ $(document).ready(function () {
         $('#link-read-more-notif').css('display', 'inline-block');
         $('.read-more-notif-loader').css('display', 'none');
       });
-    }, 750);
+    }, 500);
     
   });
 });
