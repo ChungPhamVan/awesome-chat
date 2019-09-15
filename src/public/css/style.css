@@ -1933,3 +1933,8 @@ img[title="chung"] {
   margin-bottom: 35px;
   display: block !important;
 }
+img.message-loading {
+  width: 35px;
+  display: block;
+  margin: auto;
+}

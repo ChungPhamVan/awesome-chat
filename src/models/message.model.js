@@ -45,6 +45,23 @@ MessageSchema.statics = {
   },
   getMessagesInGroup(receiverId, limit) {
     return this.find({ "receiverId": receiverId} ).sort({ 'createAt': -1 }).limit(limit).exec();
+  },
+  readMoreMessagesInGroup(receiverId, skip, limit) {
+    return this.find({ "receiverId": receiverId} ).sort({ 'createAt': -1 }).skip(skip).limit(limit).exec();
+  },
+  readMoreMessagesInPersonal(senderId, receiverId, skip, limit) {
+    return this.find({
+      $or: [
+        {$and: [
+          {"senderId": senderId},
+          {"receiverId": receiverId}
+        ]},
+        {$and: [
+          {"senderId": receiverId},
+          {"receiverId": senderId}
+        ]}
+      ]
+    }).sort({ 'createAt': -1 }).skip(skip).limit(limit).exec();    
   }
 };
 const MESSAGE_CONVERSATION_TYPES = {

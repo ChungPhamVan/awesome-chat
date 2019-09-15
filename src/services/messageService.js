@@ -8,7 +8,7 @@ import { transErrors } from '../../lang/vi';
 import { app } from '../config/app';
 
 const  LIMIT_CONVERSATION_TAKEN = 5;
-const  LIMIT_MESSAGES_TAKEN = 30;
+const  LIMIT_MESSAGES_TAKEN = 15;
 
 
 let getAllConversationItems = (currentUserId) => {
@@ -327,10 +327,34 @@ let readMoreAllChat = (currentUserId, skipPersonal, skipGroup) => {
     }
   });
 };
+
+let readMore = (currentUserId, skipMessage, targetId, chatInGroup) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if(chatInGroup) {
+        let getMessages = await MessageModel.model.readMoreMessagesInGroup(targetId, skipMessage, LIMIT_MESSAGES_TAKEN);
+        
+        getMessages = _.reverse(getMessages);
+        return resolve(getMessages);
+      }
+      let getMessages = await MessageModel.model.readMoreMessagesInPersonal(currentUserId, targetId, skipMessage, LIMIT_MESSAGES_TAKEN);
+
+      getMessages = _.reverse(getMessages);
+      return resolve(getMessages);
+    
+      
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
 module.exports = {
   getAllConversationItems: getAllConversationItems,
   addNewTextEmoji: addNewTextEmoji,
   addNewImage: addNewImage,
   addNewAttachment: addNewAttachment,
-  readMoreAllChat: readMoreAllChat
+  readMoreAllChat: readMoreAllChat,
+  readMore: readMore
 };

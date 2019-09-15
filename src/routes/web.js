@@ -59,6 +59,7 @@ let initRoutes = (app) => {
       contact.searchFriends
       );
   router.post('/group-chat/add-new', auth.checkLoggedIn, contactValid.addNewGroup, contact.addNewGroup);
+  router.get('/message/read-more', auth.checkLoggedIn, message.readMore);
   
   return app.use("/", router);
 };
