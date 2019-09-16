@@ -191,6 +191,44 @@ function bufferToBase64(buffer) {
     )
   );
 }
+function lanDauTruyCapTranWeb() {
+  if(!$('.tab-content div.active ul').find('a').length) {
+    Swal.fire({
+      type: 'info',
+      title: 'Bạn chưa có cuộc trò chuyện nào, hãy tìm kiếm bạn bè để trò chuyện',
+      backdrop: 'rgba(85, 85, 85, 0.5)',
+      width: "60rem",
+      showCancelButton: false,
+      allowOutsideClick: false,
+      confirmButtonColor: '#2ECC71',
+      confirmButtonText: 'Xác nhận'
+    }).then((result) => {
+      $('#contactsModal').modal('show');
+    });
+
+  }
+}
+function userTalk() {
+  $('.user-talk').unbind('click').on('click', function() {
+    let dataChat = $(this).data('uid');
+    $('ul.people').find(`a[href = "#uid_${dataChat}"]`).click();
+    $(this).closest('div.modal').modal('hide');
+    //console.log('chung');
+  });
+}
+function imageZoom () {
+  let modal = $('.modalZoomImage');
+  let image = $('img.show-image-chat');
+  let modalImg = $('#img01');
+  image.unbind('click').on('click', function() {
+    modal.css('display', 'block');
+    modalImg.attr('src', $(this).attr('src'));
+  });
+  modal.unbind('click').on('click', function() {
+    modal.css('display', 'none');
+  });
+}
+
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
@@ -216,11 +254,15 @@ $(document).ready(function() {
   // Thêm người dùng vào danh sách liệt kê trước khi tạo nhóm trò chuyện
 
   flashMasterNotify();
+  
 
   changeTypeChat();
   changeScreenChat();
   convertEmoji();
-  $('.tab-content div.active ul').find('a')[0].click();
+  if($('.tab-content div.active ul').find('a').length) {
+    $('.tab-content div.active ul').find('a')[0].click();
+  }
+  
   $('#myNavbar>ul>li>a>i').click(function() {
     $(this).toggleClass('vuaclickvao');
   });
@@ -228,4 +270,7 @@ $(document).ready(function() {
   $('#video-chat-group').bind('click', function() {
     alertify.notify('Tính năng không khả dụng với nhóm trò chuyện. Chỉ khả dụng với trò chuyện cá nhân', 'error', 10)
   });
+  lanDauTruyCapTranWeb();
+  userTalk();
+  imageZoom();
 });

@@ -380,9 +380,13 @@ label:focus,
 }
 
 .search_content {
-  height: 200px;
   background-color: #fff;
   overflow: auto;
+}
+.search_content .nothingResult {
+  display: block;
+  margin: auto;
+  text-align: center;
 }
 
 .search_content ul li {
@@ -560,17 +564,16 @@ label:focus,
 
 .searchBox {
   width: 300px;
-  color: #fff;
+  color: #696969;
   border: 0;
-  border-radius: 0;
   background: white;
-  box-shadow: none;
   line-height: normal;
   vertical-align: top;
   margin: 11px 0px 0px 0px;
   height: 30px;
   border-radius: 2px;
   padding-left: 10px;
+  font-weight: bold;
 }
 
 .searchBox::placeholder {
@@ -866,6 +869,11 @@ label:focus,
 
 .show-image-chat {
   max-width: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.show-image-chat:hover {
+  opacity: 0.6;
 }
 
 #loader {
@@ -1937,4 +1945,63 @@ img.message-loading {
   width: 35px;
   display: block;
   margin: auto;
+}
+
+.modalZoomImage {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 4%; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modalZoomImage-content {
+  margin: auto;
+  display: block;
+  height: 92%;
+  max-height: 700px;
+}
+
+
+/* Add Animation - Zoom in the Modal */
+.modalZoomImage-content { 
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.modalZoomImage-close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.modalZoomImage-close:hover,
+.modalZoomImage-close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modalZoomImage-content {
+    width: 100%;
+  }
 }

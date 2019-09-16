@@ -33,9 +33,11 @@ $(document).ready(function () {
         //buoc 9: kiem tra online
         socket.emit('check-status');
 
-
+        //buoc 10: 
         $('#link-read-more-all-chat').css('display', 'inline-block');
         $('.read-more-all-chat-loader').css('display', 'none');
+        // buoc 11: 
+        readMoreMessages();
       });
     }, 500);
     

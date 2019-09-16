@@ -48,6 +48,14 @@ ChatGroupSchema.statics = {
     return this.find({
       "members": {$elemMatch: {"userId": userId}}
     }).sort({ "updateAt": -1 }).skip(skip).limit(limit).exec();
+  },
+  findAllConversations(allConversationIds, keyword) {
+    return this.find({
+      $and: [
+        {"_id": {$in: allConversationIds}},
+        {"name": {"$regex": new RegExp(keyword, "i") }}
+      ]
+    }, {_id: 1, name: 1, avatar: 1}).exec();
   }
 };
 module.exports = mongoose.model("chat-group", ChatGroupSchema);

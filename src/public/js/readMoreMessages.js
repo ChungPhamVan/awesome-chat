@@ -1,6 +1,6 @@
 
 function readMoreMessages() {
-  $('.right .chat').scroll(function() {
+  $('.right .chat').unbind('scroll').on('scroll', function() {
     let firstMessage = $(this).find('.bubble:first');
     let currentOffset = firstMessage.offset().top - $(this).scrollTop();
     
@@ -38,6 +38,8 @@ function readMoreMessages() {
           // buoc 7: xoa message loading
           thisDom.find('img.message-loading').remove();
 
+          // zoom image
+          imageZoom();
         });
       }, 400);
       

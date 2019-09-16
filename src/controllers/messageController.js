@@ -197,11 +197,34 @@ let readMore = async (req, res, next) => {
   }
 };
 
+let findConversations = async (req, res, next) => {
+  let errorArr = [];
+  let validationErrors = validationResult(req);
+
+  if(!validationErrors.isEmpty()) {
+    let errors = Object.values(validationErrors.mapped());
+    errors.forEach(item => {
+      errorArr.push(item.msg);
+    });
+    return res.status(500).send(errorArr[0]);
+  }
+
+  try {
+    let keyword = req.query.keyword
+    let allConversationIds = req.query.allConversationIds.split(',');
+    let allConversations = await message.findConversations(allConversationIds, keyword);
+    
+    return res.render('main/navbar/sections/_findAllConversations', {allConversations});
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
 
 module.exports = {
   addNewTextEmoji: addNewTextEmoji,
   addNewImage: addNewImage,
   addNewAttachment: addNewAttachment,
   readMoreAllChat: readMoreAllChat,
-  readMore: readMore
+  readMore: readMore,
+  findConversations: findConversations
 };

@@ -97,6 +97,14 @@ UserSchema.statics = {
         ]}
       ]
     }, {_id: 1, username: 1, address: 1, avatar: 1}).exec();
+  },
+  findAllConversations(allConversationIds, keyword) {
+    return this.find({
+      $and: [
+        {"_id": {$in: allConversationIds}},
+        {"username": {"$regex": new RegExp(keyword, "i") }}
+      ]
+    }, {_id: 1, username: 1, avatar: 1}).exec();
   }
 };
 

@@ -7,7 +7,7 @@ import fsExtra from 'fs-extra';
 import { transErrors } from '../../lang/vi';
 import { app } from '../config/app';
 
-const  LIMIT_CONVERSATION_TAKEN = 5;
+const  LIMIT_CONVERSATION_TAKEN = 10;
 const  LIMIT_MESSAGES_TAKEN = 15;
 
 
@@ -349,12 +349,21 @@ let readMore = (currentUserId, skipMessage, targetId, chatInGroup) => {
   });
 };
 
-
+let findConversations = (allConversationIds, keyword) => {
+  return new Promise(async (resolve, reject) => {
+    let allConversations = [];
+    let allConversationInGroup = await ChatGroupModel.findAllConversations(allConversationIds, keyword);
+    let allConversationInContact = await UserModel.findAllConversations(allConversationIds, keyword);
+    allConversations = allConversations.concat(allConversationInGroup).concat(allConversationInContact);
+    resolve(allConversations);
+  });
+};
 module.exports = {
   getAllConversationItems: getAllConversationItems,
   addNewTextEmoji: addNewTextEmoji,
   addNewImage: addNewImage,
   addNewAttachment: addNewAttachment,
   readMoreAllChat: readMoreAllChat,
-  readMore: readMore
+  readMore: readMore,
+  findConversations: findConversations
 };

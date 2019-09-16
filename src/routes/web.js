@@ -38,7 +38,7 @@ let initRoutes = (app) => {
   router.get('/contact/find-users/:keyword', auth.checkLoggedIn,
       contactValid.findUsersContact, 
       contact.findUsersContact
-      );
+  );
   router.post('/contact/add-new', auth.checkLoggedIn, contact.addNew);
   router.delete('/contact/remove-request-contact-sent', auth.checkLoggedIn, contact.removeRequestContactSent);
   router.delete('/contact/remove-request-contact-received', auth.checkLoggedIn, contact.removeRequestContactReceived);
@@ -60,6 +60,10 @@ let initRoutes = (app) => {
       );
   router.post('/group-chat/add-new', auth.checkLoggedIn, contactValid.addNewGroup, contact.addNewGroup);
   router.get('/message/read-more', auth.checkLoggedIn, message.readMore);
+  router.get('/conversation/find-conversations', auth.checkLoggedIn,
+      contactValid.findUsersContact, 
+      message.findConversations
+  );
   
   return app.use("/", router);
 };

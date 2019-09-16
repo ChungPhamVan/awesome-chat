@@ -1,0 +1,11 @@
+<% if(allConversations.length === 0) { %>
+  <span class="nothingResult">Không có kết quả tìm kiếm</span>
+<% } else { %>
+  <% allConversations.forEach(function(conversation) { %>
+    <li data-uid="<%= conversation.id %>">
+      <img src="images/users/<%= conversation.avatar ? conversation.avatar: 'group-avatar-trungquandev.png' %>" alt="">
+      <span><%= conversation.name ? conversation.name : conversation.username %></span>
+    </li>
+  <% }) %>
+<% } %>
+

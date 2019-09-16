@@ -36,6 +36,7 @@ $(document).ready(function () {
                                           </li>`);
         });
         removeContact();
+        userTalk();
   
         $('#link-read-more-contacts').css('display', 'inline-block');
         $('.read-more-contacts-loader').css('display', 'none');

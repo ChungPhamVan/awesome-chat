@@ -7,7 +7,7 @@ export const transValidation = {
   update_gender : "Dữ liệu giới tính có vấn đề, bạn không được chỉnh sửa",
   update_address: "Address chỉ từ 3-30 ký tự",
   update_phone: "Phone phải bắt đầu bằng 0, giới hạn 10-11 số",
-  keyword_find_user: "Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách",
+  keyword_find_user: "Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách và không quá 17 ký tự",
   message_text_emoji_incorrect: "Tin nhắn phải có tối thiểu 1 ký tự và tối đa 400 ký tự",  
   group_chat_name_error: "Tên nhóm phải từ 5-30 ký tự, chỉ chứa chữ cái, chữ số"
 };
