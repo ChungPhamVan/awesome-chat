@@ -261,6 +261,12 @@ let addNewGroup = (groupChatName, arrayIds) => {
     resolve(newGroup);
   });
 };
+let memberInGroup = (idOfGroup, targetId) => {
+  return new Promise(async(resolve, reject) => {
+    let memberInGroup = await ChatGroupModel.memberInGroup(idOfGroup);
+    resolve(memberInGroup);
+  });
+};
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -278,5 +284,6 @@ module.exports = {
   readMoreContactsSent: readMoreContactsSent,
   readMoreContactsReceived: readMoreContactsReceived,
   searchFriends: searchFriends,
-  addNewGroup: addNewGroup
+  addNewGroup: addNewGroup,
+  memberInGroup: memberInGroup
 };

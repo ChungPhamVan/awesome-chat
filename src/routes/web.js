@@ -64,6 +64,7 @@ let initRoutes = (app) => {
       contactValid.findUsersContact, 
       message.findConversations
   );
+  router.get('/contact/show-member-group', auth.checkLoggedIn, contact.showMemberInGroup);
   
   return app.use("/", router);
 };

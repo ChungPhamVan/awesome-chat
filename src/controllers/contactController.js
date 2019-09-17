@@ -175,6 +175,13 @@ let addNewGroup = async (req, res, next) => {
     return res.status(500).send(error);
   }
 };
+
+let showMemberInGroup = async (req, res, next) => {
+  let idOfGroup = req.query.idOfGroup;
+  let targetId = req.user._id;
+  let memberInGroup = await contact.memberInGroup(idOfGroup, targetId);
+  return res.status(200).send({memberInGroup: memberInGroup});
+};
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -186,5 +193,6 @@ module.exports = {
   readMoreContactsSent: readMoreContactsSent,
   readMoreContactsReceived: readMoreContactsReceived,
   searchFriends: searchFriends,
-  addNewGroup: addNewGroup
+  addNewGroup: addNewGroup,
+  showMemberInGroup: showMemberInGroup
 }

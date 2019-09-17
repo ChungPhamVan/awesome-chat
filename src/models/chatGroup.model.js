@@ -56,6 +56,9 @@ ChatGroupSchema.statics = {
         {"name": {"$regex": new RegExp(keyword, "i") }}
       ]
     }, {_id: 1, name: 1, avatar: 1}).exec();
+  },
+  memberInGroup(idOfGroup) {
+    return this.findById(idOfGroup, {_id: 1, members: 1}).exec();
   }
 };
 module.exports = mongoose.model("chat-group", ChatGroupSchema);

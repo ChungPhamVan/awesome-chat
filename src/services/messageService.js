@@ -35,20 +35,26 @@ let getAllConversationItems = (currentUserId) => {
         return -item.updateAt;
       });
 
-      //get messages to aply in screen chat
+      //get messages to apply in screen chat
       let allConversationWithMessagesPromise = allConversations.map(async (conversation) => {
         conversation = conversation.toObject();
         if(conversation.members) {
-          let getMessages = await MessageModel.model.getMessagesInGroup(conversation._id, LIMIT_MESSAGES_TAKEN);
-        
+          let getMessages = await MessageModel.model.getMessagesInGroup(conversation._id, LIMIT_MESSAGES_TAKEN);    
           conversation.messages = _.reverse(getMessages);
+
+
+          let getIdMembersInGroup = [];
+          conversation.members.map(member => {
+            getIdMembersInGroup.push(member.userId);
+          });
+          let getMembersInGroup = await UserModel.findAllUsers(getIdMembersInGroup);
+          conversation.getMembersInGroup = getMembersInGroup;
+          
         } else {
           let getMessages = await MessageModel.model.getMessagesInPersonal(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
         
           conversation.messages = _.reverse(getMessages);
         }
-        
-        
         return conversation;
       });
       let allConversationWithMessages = await Promise.all(allConversationWithMessagesPromise);
@@ -57,9 +63,8 @@ let getAllConversationItems = (currentUserId) => {
         return -item.updateAt;
       });
 
-
       resolve({
-        allConversationWithMessages: allConversationWithMessages
+        allConversationWithMessages: allConversationWithMessages,
       });
 
       

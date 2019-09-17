@@ -25,8 +25,8 @@
           <a href="javascript:void(0)">&nbsp;</a>
         </span>
         <span class="chat-menu-right">
-          <a href="javascript:void(0)" class="number-members" data-toggle="modal">
-            <span class="show-number-members"><%= conversation.userAmount %></span>
+          <a href="#showMemberGroupModal_<%= conversation._id %>" class="number-members" data-toggle="modal">
+            <span class="show-number-members"><%= conversation.userAmount %>&nbsp; thành viên</span>
             <i class="fa fa-users"></i>
           </a>
         </span>
@@ -35,7 +35,7 @@
         </span>
         <span class="chat-menu-right">
           <a href="javascript:void(0)" class="number-messages" data-toggle="modal">
-            <span class="show-number-message"><%= conversation.messageAmount %></span>
+            <span class="show-number-message"><%= conversation.messageAmount %>&nbsp; tin nhắn</span>
             <i class="fa fa-comments"></i>
           </a>
         </span>

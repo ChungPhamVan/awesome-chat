@@ -105,6 +105,13 @@ UserSchema.statics = {
         {"username": {"$regex": new RegExp(keyword, "i") }}
       ]
     }, {_id: 1, username: 1, avatar: 1}).exec();
+  },
+  findAllUsers(getIdMembersInGroup) {
+    return this.find({
+      $and: [
+        {"_id": {$in: getIdMembersInGroup}},
+      ]
+    }, {_id: 1, username: 1, avatar: 1}).exec();
   }
 };
 

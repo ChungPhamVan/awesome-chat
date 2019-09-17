@@ -198,7 +198,8 @@ label:focus,
 .contactPanel .user-remove-contact,
 .contactPanel .user-remove-request-contact-sent,
 .contactPanel .user-approve-request-contact-received,
-.contactPanel .user-remove-request-contact-received {
+.contactPanel .user-remove-request-contact-received,
+.list-members .member-item .user-talk {
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -226,7 +227,12 @@ label:focus,
   fill: #fff;
   margin: 10px 0px 5px 2px;
 }
-
+.list-members .member-item .user-talk {
+  margin: auto;
+  display: block;
+  max-width: 100px;
+  text-align: center;
+}
 .contactPanel .user-remove-request-contact-sent {
   display: none;
 }
@@ -2004,4 +2010,43 @@ img.message-loading {
   .modalZoomImage-content {
     width: 100%;
   }
+}
+.list-members .member-item .user-name {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.list-members {
+  text-align: center;
+}
+.list-members li.member-item {
+  float: left;
+  list-style: none;
+  width: 200px;
+  height: 200px;
+}
+.list-members .member-item>div {
+  width: 100%;
+  height: 100%;
+}
+.list-members .member-item .user-avatar {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.list-members .member-item img {
+  width: 100%;
+  height: 100%;
+}
+.list-members .member-item .user-name {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.list-members .member-item .user-name.its-me {
+  color: red;
 }
