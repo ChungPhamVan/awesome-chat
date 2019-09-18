@@ -37,7 +37,6 @@ function attachmentChat(divId) {
           let dataToEmit = {
             message: data.message
           };
-          console.log(data.message);
 
           let messageOfMe = $(
             `<div class="bubble me bubble-attachment-file" data-mess-id="${data.message._id}"></div>`

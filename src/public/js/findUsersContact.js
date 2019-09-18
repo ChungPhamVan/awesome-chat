@@ -12,7 +12,7 @@ let callFindUsers = function(element) {
       alertify.notify("Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách và không quá 17 ký tự", "error", 7);
       return false;
     }
-    $.get(`/contact/find-users/${keyword}`, function(data) {
+    $.get(`/contact/find-users?keyword=${keyword}&create=1`, function(data) {
       $('#find-user ul').html(data);
       addContact();
       removeRequestContactSent();

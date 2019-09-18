@@ -37,11 +37,11 @@ function callSearchFriends(element) {
       alertify.notify('Chưa nhập nội dung tìm kiếm', "error", 7);
       return false;
     }
-    if(!regexKeyword.test(keyword)) { 
-      alertify.notify("Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách", "error", 7);
+    if(!regexKeyword.test(keyword) || keyword.length > 17) { 
+      alertify.notify("Lỗi từ khóa tìm kiếm, chỉ cho phép nhập chữ cái, số, khoảng cách và không quá 17 ký tự", "error", 7);
       return false;
     }
-    $.get(`/contact/search-friends/${keyword}`, function(data) {
+    $.get(`/contact/find-users?keyword=${keyword}&create=0`, function(data) {
       $('ul#group-chat-friends').html(data);
       addFriendsToGroup();
 
@@ -122,6 +122,12 @@ function callCreateGroupChat() {
             <div class="top">
               <span>To: <span class="name">${data.groupChat.name}</span></span>
               <span class="chat-menu-right">
+                <a href="javascript:void(0)" class="add-member" data-toggle="modal">
+                  <span class="add-member-to-group">Thêm thành viên</span>
+                  <i class="fa fa-plus-square"></i>
+                </a>
+              </span>
+              <span class="chat-menu-right">
                 <a href="#attachmentsModal_${data.groupChat._id}" class="show-attachments" data-toggle="modal">
                   Tệp đính kèm
                   <i class="fa fa-paperclip"></i>
@@ -140,8 +146,8 @@ function callCreateGroupChat() {
                 <a href="javascript:void(0)">&nbsp;</a>
               </span>
               <span class="chat-menu-right">
-                <a href="javascript:void(0)" class="number-members" data-toggle="modal">
-                  <span class="show-number-members">${data.groupChat.userAmount}</span>
+                <a href="#showMemberGroupModal_${data.groupChat._id}" class="number-members" data-toggle="modal">
+                  <span class="show-number-members">${data.groupChat.userAmount}&nbsp; thành viên</span>
                   <i class="fa fa-users"></i>
                 </a>
               </span>
@@ -149,10 +155,10 @@ function callCreateGroupChat() {
                 <a href="javascript:void(0)">&nbsp;</a>
               </span>
               <span class="chat-menu-right">
-                <a href="javascript:void(0)" class="number-messages" data-toggle="modal">
-                  <span class="show-number-message">${data.groupChat.messageAmount}</span>
+                <span href="javascript:void(0)" class="number-messages" data-toggle="modal">
+                  <span class="show-number-message">${data.groupChat.messageAmount}&nbsp; tin nhắn</span>
                   <i class="fa fa-comments"></i>
-                </a>
+                </span>
               </span>
             </div>
             <div class="content-chat">
@@ -221,12 +227,29 @@ function callCreateGroupChat() {
             </div>
           </div>`;
       $('body').append(attachmenModalData);
+      //buoc 9: xem thanh vien nhom
+      
+      let showMemberInGroup =
+      `<div class="modal fade" id="showMemberGroupModal_${data.groupChat._id}" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Các thành viên trong nhóm.</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-members">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>`;
+      $('body').append(showMemberInGroup);
 
       //buoc 8: đóng sự kiện tạo nhóm, làm socket
       socket.emit('new-group-created', {
         groupChat: data.groupChat
       });
-
       // buoc 10: 
       socket.emit('check-status');
       
@@ -277,6 +300,12 @@ $(document).ready(function() {
         <div class="top">
           <span>To: <span class="name">${data.groupChat.name}</span></span>
           <span class="chat-menu-right">
+            <a href="javascript:void(0)" class="add-member" data-toggle="modal">
+              <span class="add-member-to-group">Thêm thành viên</span>
+              <i class="fa fa-plus-square"></i>
+            </a>
+          </span>
+          <span class="chat-menu-right">
             <a href="#attachmentsModal_${data.groupChat._id}" class="show-attachments" data-toggle="modal">
               Tệp đính kèm
               <i class="fa fa-paperclip"></i>
@@ -295,8 +324,8 @@ $(document).ready(function() {
             <a href="javascript:void(0)">&nbsp;</a>
           </span>
           <span class="chat-menu-right">
-            <a href="javascript:void(0)" class="number-members" data-toggle="modal">
-              <span class="show-number-members">${data.groupChat.userAmount}</span>
+            <a href="#showMemberGroupModal_${data.groupChat._id}" class="number-members" data-toggle="modal">
+              <span class="show-number-members">${data.groupChat.userAmount}&nbsp; thành viên</span>
               <i class="fa fa-users"></i>
             </a>
           </span>
@@ -305,7 +334,7 @@ $(document).ready(function() {
           </span>
           <span class="chat-menu-right">
             <a href="javascript:void(0)" class="number-messages" data-toggle="modal">
-              <span class="show-number-message">${data.groupChat.messageAmount}</span>
+              <span class="show-number-message">${data.groupChat.messageAmount}&nbsp; tin nhắn</span>
               <i class="fa fa-comments"></i>
             </a>
           </span>
@@ -377,13 +406,31 @@ $(document).ready(function() {
       </div>`;
     $('body').append(attachmenModalData);
 
-    // buoc 8: đóng sự kiện tạo nhóm, làm socket
-    // buoc 9: 
+    //buoc 8: xem thanh vien nhom
+    let showMemberInGroup =
+      `<div class="modal fade" id="showMemberGroupModal_${data.groupChat._id}" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Các thành viên trong nhóm.</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-members">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>`;
+      $('body').append(showMemberInGroup);
+
+    // buoc 9: đóng sự kiện tạo nhóm, làm socket
+    // buoc 10: 
     socket.emit('member-received-group-chat', {
       groupChatId: data.groupChat._id
     });
 
-    // buoc 10: 
+    // buoc 11: 
     socket.emit('check-status');
   });
 });

@@ -17,11 +17,14 @@ let findUsersContact = async (req, res, next) => {
 
   try {
     let currentUserId = req.user._id;
-    let keyword = req.params.keyword;
+    let keyword = req.query.keyword;
+    let create = req.query.create == '1';
     let users = await contact.findUsersContact(currentUserId, keyword);
     // console.log(users);
-    
-    return res.render('main/contact/sections/_findUsersContact', {users});
+    if(create) {
+      return res.render('main/contact/sections/_findUsersContact', {users});
+    }
+    return res.render('main/groupChat/sections/_searchFriends', {users});
   } catch (error) {
     return res.status(500).send(error);
   }

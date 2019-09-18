@@ -432,13 +432,29 @@ label:focus,
   background-color: #eceff1;
 }
 
-.navbar-brand>img {
-  margin: -12px 0px 0px 7px;
-  width: 150px;
-  -webkit-filter: brightness(130%);
-  filter: brightness(130%);
+.navbar-brand>i {
+    /* margin: -12px 0px 0px 7px; */
+  /* width: 150px; */
+    -webkit-filter: brightness(130%);
+    filter: brightness(130%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #4267b2;
 }
-
+.navbar-brand {
+  float: left;
+  height: 44px;
+  padding: 10px 10px;
+  font-size: 18px;
+  line-height: 20px;
+  background: #f9f9f9;
+  margin-top: 5px;
+  border-radius: 5px;
+  margin-left: 193px;
+}
+.navbar-brand:hover, .navbar-brand:focus, .navbar-brand:active {
+  background: #f9f9f9 !important;
+}
 .navbar {
   font-size: 14px;
 }
