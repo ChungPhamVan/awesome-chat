@@ -7,6 +7,15 @@
       <div class="top">
         <span>To: <span class="name"><%= conversation.name%></span></span>
         <span class="chat-menu-right">
+          <a href="javascript:void(0)" class="add-member" data-toggle="modal">
+            <span class="add-member-to-group">Thêm thành viên</span>
+            <i class="fa fa-plus-square"></i>
+          </a>
+        </span>
+        <span class="chat-menu-right">
+          <a href="javascript:void(0)">&nbsp;</a>
+        </span>
+        <span class="chat-menu-right">
           <a href="#attachmentsModal_<%= conversation._id %>" class="show-attachments" data-toggle="modal">
             Tệp đính kèm
             <i class="fa fa-paperclip"></i>
@@ -34,10 +43,10 @@
           <a href="javascript:void(0)">&nbsp;</a>
         </span>
         <span class="chat-menu-right">
-          <a href="javascript:void(0)" class="number-messages" data-toggle="modal">
+          <span class="number-messages">
             <span class="show-number-message"><%= conversation.messageAmount %>&nbsp; tin nhắn</span>
             <i class="fa fa-comments"></i>
-          </a>
+          </span>
         </span>
       </div>
       <div class="content-chat">

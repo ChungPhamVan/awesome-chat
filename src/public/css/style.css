@@ -821,11 +821,12 @@ label:focus,
   font-weight: 600;
 }
 
-.right .top .chat-menu-right a {
+.right .top .chat-menu-right a, .right .top .chat-menu-right>span {
   float: right;
   margin-right: 10px;
   color: #2c3e50;
 }
+
 
 .right .content-chat {
   width: 100%;
@@ -1936,8 +1937,18 @@ img[title="chung"] {
   background-color: black;
   color: black;
 }
+.chat-menu-right a:hover {
+  text-decoration: underline;
+}
+
 .show-number-members, .show-number-message {
   color: #2c3e59 !important;
+}
+.add-member-to-group {
+  color: #0066ff !important;
+}
+.number-messages {
+  cursor: auto;
 }
 .message-time-realtime {
   color: #e74c3c !important;
